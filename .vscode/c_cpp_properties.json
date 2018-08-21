@@ -33,7 +33,8 @@
             "macFrameworkPath": [
                 "/System/Library/Frameworks",
                 "/Library/Frameworks"
-            ]
+            ],
+            "compileCommands": "${workspaceFolder}/tools/checker/compile_commands.json"
         },
         {
             "name": "Linux",
