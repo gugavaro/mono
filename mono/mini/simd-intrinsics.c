@@ -30,16 +30,16 @@ TODO add support for fusing a XMOVE into a simd op in mono_spill_global_vars.
 TODO add stuff to man pages
 TODO document this under /docs
 TODO make passing a xmm as argument not cause it to be LDADDR'ed (introduce an OP_XPUSH)
-TODO revamp the .ctor sequence as it looks very fragile, maybe use a var just like move_i4_to_f. (or just pinst sse ops) 
+TODO revamp the .ctor sequence as it looks very fragile, maybe use a var just like move_i4_to_f. (or just pinst sse ops)
 TODO figure out what's wrong with OP_STOREX_MEMBASE_REG and OP_STOREX_MEMBASE (the 2nd is for imm operands)
 TODO maybe add SSE3 emulation on top of SSE2, or just implement the corresponding functions using SSE2 intrinsics.
-TODO pass simd arguments in registers or, at least, add SSE support for pushing large (>=16) valuetypes 
+TODO pass simd arguments in registers or, at least, add SSE support for pushing large (>=16) valuetypes
 TODO pass simd args byval to a non-intrinsic method cause some useless local var load/store to happen.
 TODO check if we need to init the SSE control word with better precision.
 TODO add support for 3 reg sources in mini without slowing the common path. Or find a way to make MASKMOVDQU work.
 TODO make SimdRuntime.get_AccelMode work under AOT
 TODO patterns such as "a ^= b" generate slower code as the LDADDR op will be copied to a tmp first. Look at adding a indirection reduction pass after the dce pass.
-TODO extend bounds checking code to support for range checking.  
+TODO extend bounds checking code to support for range checking.
 
 General notes for SIMD intrinsics.
 
@@ -47,7 +47,7 @@ General notes for SIMD intrinsics.
 Extracting a float from a XMM is a complete disaster if you are passing it as an argument.
 It will be loaded in the FP stack just to be pushed on the call stack.
 
-A similar thing happens with Vector4f constructor that require float vars to be 
+A similar thing happens with Vector4f constructor that require float vars to be
 
 The fix for this issue is similar to the one required for r4const as method args. Avoiding the
 trip to the FP stack is desirable.
@@ -157,7 +157,7 @@ static const SimdIntrinsic vector4f_intrinsics[] = {
 	{ SN_DuplicateHigh, OP_DUPPS_HIGH, SIMD_VERSION_SSE3, SIMD_EMIT_UNARY },
 	{ SN_DuplicateLow, OP_DUPPS_LOW, SIMD_VERSION_SSE3, SIMD_EMIT_UNARY },
 	{ SN_HorizontalAdd, OP_HADDPS, SIMD_VERSION_SSE3, SIMD_EMIT_BINARY },
-	{ SN_HorizontalSub, OP_HSUBPS, SIMD_VERSION_SSE3, SIMD_EMIT_BINARY },	
+	{ SN_HorizontalSub, OP_HSUBPS, SIMD_VERSION_SSE3, SIMD_EMIT_BINARY },
 	{ SN_InterleaveHigh, OP_UNPACK_HIGHPS, SIMD_VERSION_SSE1, SIMD_EMIT_BINARY },
 	{ SN_InterleaveLow, OP_UNPACK_LOWPS, SIMD_VERSION_SSE1, SIMD_EMIT_BINARY },
 	{ SN_InvSqrt, OP_RSQRTPS, SIMD_VERSION_SSE1, SIMD_EMIT_UNARY },
@@ -183,7 +183,7 @@ static const SimdIntrinsic vector4f_intrinsics[] = {
 	{ SN_op_Division, OP_DIVPS, SIMD_VERSION_SSE1, SIMD_EMIT_BINARY },
 	{ SN_op_Equality, OP_COMPPS, SIMD_VERSION_SSE1, SIMD_EMIT_EQUALITY, SIMD_COMP_EQ },
 	{ SN_op_ExclusiveOr, OP_XORPS, SIMD_VERSION_SSE1, SIMD_EMIT_BINARY },
-	{ SN_op_Explicit, 0, SIMD_VERSION_SSE1, SIMD_EMIT_CAST }, 
+	{ SN_op_Explicit, 0, SIMD_VERSION_SSE1, SIMD_EMIT_CAST },
 	{ SN_op_Inequality, OP_COMPPS, SIMD_VERSION_SSE1, SIMD_EMIT_EQUALITY, SIMD_COMP_NEQ },
 	{ SN_op_Multiply, OP_MULPS, SIMD_VERSION_SSE1, SIMD_EMIT_BINARY },
 	{ SN_op_Subtraction, OP_SUBPS, SIMD_VERSION_SSE1, SIMD_EMIT_BINARY },
@@ -191,6 +191,16 @@ static const SimdIntrinsic vector4f_intrinsics[] = {
 	{ SN_set_X, 0, SIMD_VERSION_SSE1, SIMD_EMIT_SETTER },
 	{ SN_set_Y, 1, SIMD_VERSION_SSE1, SIMD_EMIT_SETTER },
 	{ SN_set_Z, 2, SIMD_VERSION_SSE1, SIMD_EMIT_SETTER }
+};
+
+static const SimdIntrinsic complex_intrinsics[] = {
+	{ SN_ctor, OP_EXPAND_R8, SIMD_VERSION_SSE1, SIMD_EMIT_CTOR },
+	{ SN_get_X, 0, SIMD_VERSION_SSE1, SIMD_EMIT_GETTER_QWORD },
+	{ SN_get_Y, 1, SIMD_VERSION_SSE1, SIMD_EMIT_GETTER_QWORD },
+	{ SN_op_Addition, OP_ADDPD, SIMD_VERSION_SSE1, SIMD_EMIT_BINARY },
+	{ SN_op_Multiply, OP_MULPD, SIMD_VERSION_SSE1, SIMD_EMIT_BINARY },
+	{ SN_set_X, 0, SIMD_VERSION_SSE1, SIMD_EMIT_SETTER },
+	{ SN_set_Y, 1, SIMD_VERSION_SSE1, SIMD_EMIT_SETTER },
 };
 
 static const SimdIntrinsic vector2d_intrinsics[] = {
@@ -210,7 +220,7 @@ static const SimdIntrinsic vector2d_intrinsics[] = {
 	{ SN_ConvertToIntTruncated, OP_CVTTPD2DQ, SIMD_VERSION_SSE2, SIMD_EMIT_UNARY },
 	{ SN_Duplicate, OP_DUPPD, SIMD_VERSION_SSE3, SIMD_EMIT_UNARY },
 	{ SN_HorizontalAdd, OP_HADDPD, SIMD_VERSION_SSE3, SIMD_EMIT_BINARY },
-	{ SN_HorizontalSub, OP_HSUBPD, SIMD_VERSION_SSE3, SIMD_EMIT_BINARY },	
+	{ SN_HorizontalSub, OP_HSUBPD, SIMD_VERSION_SSE3, SIMD_EMIT_BINARY },
 	{ SN_InterleaveHigh, OP_UNPACK_HIGHPD, SIMD_VERSION_SSE1, SIMD_EMIT_BINARY },
 	{ SN_InterleaveLow, OP_UNPACK_LOWPD, SIMD_VERSION_SSE1, SIMD_EMIT_BINARY },
 	{ SN_LoadAligned, 0, SIMD_VERSION_SSE1, SIMD_EMIT_LOAD_ALIGNED },
@@ -230,7 +240,7 @@ static const SimdIntrinsic vector2d_intrinsics[] = {
 	{ SN_op_BitwiseOr, OP_ORPD, SIMD_VERSION_SSE1, SIMD_EMIT_BINARY },
 	{ SN_op_Division, OP_DIVPD, SIMD_VERSION_SSE1, SIMD_EMIT_BINARY },
 	{ SN_op_ExclusiveOr, OP_XORPD, SIMD_VERSION_SSE1, SIMD_EMIT_BINARY },
-	{ SN_op_Explicit, 0, SIMD_VERSION_SSE1, SIMD_EMIT_CAST }, 
+	{ SN_op_Explicit, 0, SIMD_VERSION_SSE1, SIMD_EMIT_CAST },
 	{ SN_op_Multiply, OP_MULPD, SIMD_VERSION_SSE1, SIMD_EMIT_BINARY },
 	{ SN_op_Subtraction, OP_SUBPD, SIMD_VERSION_SSE1, SIMD_EMIT_BINARY },
 	{ SN_set_X, 0, SIMD_VERSION_SSE1, SIMD_EMIT_SETTER },
@@ -745,8 +755,8 @@ mono_simd_simplify_indirection (MonoCompile *cfg)
 
 	FIXME This pass could use dominator information to properly
 	place the XZERO on the bb that dominates all uses of the var,
-	but this will have zero effect with the current local reg alloc 
-	
+	but this will have zero effect with the current local reg alloc
+
 	TODO simply the use of flags.
 	*/
 
@@ -929,7 +939,7 @@ get_simd_vreg (MonoCompile *cfg, MonoMethod *cmethod, MonoInst *src)
 }
 
 /*
- * This function will load the value if needed. 
+ * This function will load the value if needed.
  */
 static int
 load_simd_vreg_class (MonoCompile *cfg, MonoClass *klass, MonoInst *src, gboolean *indirect)
@@ -976,7 +986,7 @@ get_double_spill_area (MonoCompile *cfg)
 	if (!cfg->fconv_to_r8_x_var) {
 		cfg->fconv_to_r8_x_var = mono_compile_create_var (cfg, m_class_get_byval_arg (mono_defaults.double_class), OP_LOCAL);
 		cfg->fconv_to_r8_x_var->flags |= MONO_INST_VOLATILE; /*FIXME, use the don't regalloc flag*/
-	}	
+	}
 	return cfg->fconv_to_r8_x_var;
 }
 static MonoInst*
@@ -985,7 +995,7 @@ get_simd_ctor_spill_area (MonoCompile *cfg, MonoClass *avector_klass)
 	if (!cfg->simd_ctor_var) {
 		cfg->simd_ctor_var = mono_compile_create_var (cfg, m_class_get_byval_arg (avector_klass), OP_LOCAL);
 		cfg->simd_ctor_var->flags |= MONO_INST_VOLATILE; /*FIXME, use the don't regalloc flag*/
-	}	
+	}
 	return cfg->simd_ctor_var;
 }
 
@@ -1308,7 +1318,7 @@ simd_intrinsic_emit_unary (const SimdIntrinsic *intrinsic, MonoCompile *cfg, Mon
 {
 	MonoInst* ins;
 	int vreg;
-	
+
 	vreg = get_simd_vreg (cfg, cmethod, args [0]);
 
 	MONO_INST_NEW (cfg, ins, intrinsic->opcode);
@@ -1420,7 +1430,7 @@ simd_intrinsic_emit_setter (const SimdIntrinsic *intrinsic, MonoCompile *cfg, Mo
 	gboolean indirect;
 	int dreg;
 
-	size = mono_type_size (sig->params [0], &align); 
+	size = mono_type_size (sig->params [0], &align);
 
 	if (COMPILE_LLVM (cfg)) {
 		MONO_INST_NEW (cfg, ins, mono_type_to_insert_op (sig->params [0]));
@@ -1588,7 +1598,7 @@ simd_intrinsic_emit_ctor (const SimdIntrinsic *intrinsic, MonoCompile *cfg, Mono
 
 	if (sig->param_count == 1) {
 		int dreg;
-		
+
 		if (is_ldaddr) {
 			dreg = args [0]->inst_i0->dreg;
 			NULLIFY_INS (args [0]);
@@ -1651,7 +1661,7 @@ simd_intrinsic_emit_ctor (const SimdIntrinsic *intrinsic, MonoCompile *cfg, Mono
 	if (is_ldaddr) { /*Eliminate LDADDR if it's initing a local var*/
 		int vreg = ((MonoInst*)args [0]->inst_p0)->dreg;
 		NULLIFY_INS (args [0]);
-		
+
 		MONO_INST_NEW (cfg, ins, OP_LOADX_MEMBASE);
 		ins->klass = cmethod->klass;
 		ins->sreg1 = addr_reg;
@@ -1669,7 +1679,7 @@ simd_intrinsic_emit_cast (const SimdIntrinsic *intrinsic, MonoCompile *cfg, Mono
 	MonoClass *klass;
 	int vreg;
 
-	vreg = get_simd_vreg (cfg, cmethod, args [0]);		
+	vreg = get_simd_vreg (cfg, cmethod, args [0]);
 
 	if (cmethod->is_inflated)
 		/* Vector<T> */
@@ -1735,7 +1745,7 @@ simd_intrinsic_emit_equality_op (MonoCompile *cfg, MonoMethod *cmethod, MonoInst
 
 	left_vreg = load_simd_vreg (cfg, cmethod, args [0], NULL);
 	right_vreg = get_simd_vreg (cfg, cmethod, args [1]);
-	
+
 	MONO_INST_NEW (cfg, ins, opcode);
 	ins->klass = cmethod->klass;
 	ins->sreg1 = left_vreg;
@@ -1762,7 +1772,7 @@ simd_intrinsic_emit_equality_op (MonoCompile *cfg, MonoMethod *cmethod, MonoInst
 		MONO_EMIT_NEW_BIALU_IMM (cfg, OP_COMPARE_IMM, -1, tmp_vreg, 0);
 		NEW_UNALU (cfg, ins, OP_CGT_UN, tmp_vreg, -1);
 	}
-	MONO_ADD_INS (cfg->cbb, ins);	
+	MONO_ADD_INS (cfg->cbb, ins);
 	return ins;
 }
 
@@ -1841,7 +1851,7 @@ simd_intrinsic_emit_extract_mask (const SimdIntrinsic *intrinsic, MonoCompile *c
 {
 	MonoInst *ins;
 	int vreg;
-	
+
 	vreg = get_simd_vreg (cfg, cmethod, args [0]);
 
 	MONO_INST_NEW (cfg, ins, OP_EXTRACT_MASK);
@@ -1948,7 +1958,7 @@ emit_intrinsics (MonoCompile *cfg, MonoMethod *cmethod, MonoMethodSignature *fsi
 	case SIMD_EMIT_CAST:
 		return simd_intrinsic_emit_cast (result, cfg, cmethod, args);
 	case SIMD_EMIT_SHUFFLE:
-		return simd_intrinsic_emit_shuffle (result, cfg, cmethod, args); 
+		return simd_intrinsic_emit_shuffle (result, cfg, cmethod, args);
 	case SIMD_EMIT_SHIFT:
 		return simd_intrinsic_emit_shift (result, cfg, cmethod, args);
 	case SIMD_EMIT_EQUALITY:
@@ -2100,7 +2110,7 @@ mono_emit_simd_intrinsics (MonoCompile *cfg, MonoMethod *cmethod, MonoMethodSign
 		simd_inst = emit_array_extension_intrinsics (cfg, cmethod, fsig, args);
 		goto on_exit;
 	}
-	
+
 	if (!strcmp ("VectorOperations", class_name)) {
 		if (!(cmethod->flags & METHOD_ATTRIBUTE_STATIC))
 			goto on_exit;
@@ -2109,6 +2119,10 @@ mono_emit_simd_intrinsics (MonoCompile *cfg, MonoMethod *cmethod, MonoMethodSign
 		goto on_exit;
 
 	cfg->uses_simd_intrinsics |= MONO_CFG_USES_SIMD_INTRINSICS_SIMPLIFY_INDIRECTION;
+	if (!strcmp ("Complex", class_name)) {
+		simd_inst = emit_intrinsics (cfg, cmethod, fsig, args, complex_intrinsics, sizeof (complex_intrinsics) / sizeof (SimdIntrinsic));
+		goto on_exit;
+	}
 	if (!strcmp ("Vector2d", class_name)) {
 		simd_inst = emit_intrinsics (cfg, cmethod, fsig, args, vector2d_intrinsics, sizeof (vector2d_intrinsics) / sizeof (SimdIntrinsic));
 		goto on_exit;

@@ -23,7 +23,7 @@ public class SimdTests {
 			return 4;
 		return 0;
 	}
-	
+
 	static int test_0_vector2d_one_element_ctor () {
 		Vector2d a = new Vector2d (99);
 		if (a.X != 99)
@@ -307,7 +307,7 @@ public class SimdTests {
 				return 4;
 		}
 		return 0;
-	}	
+	}
 	public static int test_0_bug_462457 ()
 	{
 		Vector4f sum = new Vector4f(0,0,0,0);
@@ -393,7 +393,7 @@ public class SimdTests {
 
 		return 0;
 	}
-	
+
 	public static int test_0_set_vector4f_operator_eq () {
 		Vector4f a = new Vector4f(1, 2, 3, 4);
 		Vector4f b = new Vector4f(1, 2, 3, 4);
@@ -459,7 +459,7 @@ public class SimdTests {
 		}
 		return 0;
 	}
-	
+
 	public static int test_0_set_vector_negative_index () {
 		uint[] array = new uint[4];
 
@@ -509,7 +509,7 @@ public class SimdTests {
 		}
 		return 0;
 	}
-	
+
 	public static int test_0_get_vector_negative_index () {
 		uint[] array = new uint[4];
 
@@ -531,7 +531,7 @@ public class SimdTests {
 		}
 		return 0;
 	}
-	
+
 	public static int test_0_get_vector () {
 		uint[] array = new uint[] { 11, 22, 33, 44, 55, 66, 77, 88, 99, 111 };
 
@@ -548,7 +548,7 @@ public class SimdTests {
 
 		return 0;
 	}
-	
+
 	public static int test_0_accessor_vecto2l () {
 		Vector2l a = new Vector2l (3, 2);
 
@@ -629,7 +629,7 @@ public class SimdTests {
 		a.Y = 22;
 		a.Z = 33333344;
 		a.W = -44444444;
-		
+
 		if (a.X != 11)
 			return 5;
 		if (a.Y != 22)
@@ -668,18 +668,18 @@ public class SimdTests {
 			return 8;
 		return 0;
 	}
-	
+
 	static float use_getter_with_byref (ref Vector4f a) {
 		return a.W;
 	}
- 
+
 	public static int test_0_accessor_and_byref_var () {
 		Vector4f a = new Vector4f (1, 2, 3, 4);
 		if (use_getter_with_byref (ref a) != 4)
 			return 1;
 		return 0;
 	}
-	
+
 	public static unsafe int test_0_vector2ul_slr () {
 		Vector2ul a = new Vector2ul (1, 6);
 
@@ -687,7 +687,7 @@ public class SimdTests {
 		if (c.X != 0)
 			return 1;
 		if (c.Y != 3)
-			return 2;	
+			return 2;
 		return 0;
 	}
 
@@ -696,7 +696,7 @@ public class SimdTests {
 		Vector2l b = new Vector2l (-1, 5);
 
 		Vector2l c = a.CompareGreaterThan (b);
-	
+
 		if (c.X != -1)
 			return 1;
 		if (c.Y != 0)
@@ -709,7 +709,7 @@ public class SimdTests {
 		Vector2l b = new Vector2l (0xFF000000FFL, 5);
 
 		Vector2l c = a.CompareEqual (b);
-	
+
 		if (c.X != 0)
 			return 1;
 		if (c.Y != -1)
@@ -721,7 +721,7 @@ public class SimdTests {
 		Vector2l a = new Vector2l (1, 6);
 
 		Vector2l c = a.LogicalRightShift (1);
-	
+
 		if (c.X != 0)
 			return 1;
 		if (c.Y != 3)
@@ -734,7 +734,7 @@ public class SimdTests {
 		Vector2l b = new Vector2l (3, 4);
 
 		Vector2l c = a.UnpackHigh (b);
-	
+
 		if (c.X != 6)
 			return 1;
 		if (c.Y != 4)
@@ -747,7 +747,7 @@ public class SimdTests {
 		Vector2l b = new Vector2l (3, 4);
 
 		Vector2l c = a.UnpackLow (b);
-	
+
 		if (c.X != 1)
 			return 1;
 		if (c.Y != 3)
@@ -760,7 +760,7 @@ public class SimdTests {
 		Vector2l b = new Vector2l (3, 4);
 
 		Vector2l c = a ^ b;
-	
+
 		if (c.X != 2)
 			return 1;
 		if (c.Y != 2)
@@ -773,7 +773,7 @@ public class SimdTests {
 		Vector2l b = new Vector2l (3, 4);
 
 		Vector2l c = a | b;
-	
+
 		if (c.X != 3)
 			return 1;
 		if (c.Y != 6)
@@ -786,7 +786,7 @@ public class SimdTests {
 		Vector2l b = new Vector2l (3, 4);
 
 		Vector2l c = a & b;
-	
+
 		if (c.X != 1)
 			return 1;
 		if (c.Y != 4)
@@ -798,7 +798,7 @@ public class SimdTests {
 		Vector2l a = new Vector2l (1, 6);
 
 		Vector2l c = a << 3;
-	
+
 		if (c.X != 8)
 			return 1;
 		if (c.Y != 48)
@@ -810,7 +810,7 @@ public class SimdTests {
 		Vector2l b = new Vector2l (3, 4);
 
 		Vector2l c = a - b;
-	
+
 		if (c.X != -2)
 			return 1;
 		if (c.Y != 2)
@@ -823,7 +823,7 @@ public class SimdTests {
 		Vector2l b = new Vector2l (3, 4);
 
 		Vector2l c = a + b;
-	
+
 		if (c.X != 4)
 			return 1;
 		if (c.Y != 6)
@@ -835,7 +835,7 @@ public class SimdTests {
 		Vector2d a = new Vector2d (3, 2);
 
 		Vector2d c = a.Duplicate ();
-	
+
 		if (c.X != 3)
 			return 1;
 		if (c.Y != 3)
@@ -848,7 +848,7 @@ public class SimdTests {
 		Vector2d b = new Vector2d (3, 4);
 
 		Vector4ui c = (Vector4ui)a.CompareEqual (b);
-	
+
 		if (c.X != 0xFFFFFFFF)
 			return 1;
 		if (c.Y != 0xFFFFFFFF)
@@ -865,7 +865,7 @@ public class SimdTests {
 		Vector2d b = new Vector2d (4, 5);
 
 		Vector2d c = a.InterleaveLow (b);
-	
+
 		if (c.X != 1)
 			return 1;
 		if (c.Y != 4)
@@ -878,7 +878,7 @@ public class SimdTests {
 		Vector2d b = new Vector2d (4, 5);
 
 		Vector2d c = a.InterleaveHigh (b);
-	
+
 		if (c.X != 2)
 			return 1;
 		if (c.Y != 5)
@@ -890,7 +890,7 @@ public class SimdTests {
 		Vector2d b = new Vector2d (4, 1);
 
 		Vector2d c = a.AddSub (b);
-	
+
 		if (c.X != -3)
 			return 1;
 		if (c.Y != 3)
@@ -902,7 +902,7 @@ public class SimdTests {
 		Vector2d b = new Vector2d (4, 1);
 
 		Vector2d c = a.HorizontalSub (b);
-	
+
 		if (c.X != -1)
 			return 1;
 		if (c.Y != 3)
@@ -915,7 +915,7 @@ public class SimdTests {
 		Vector2d b = new Vector2d (4, 0);
 
 		Vector2d c = a.HorizontalAdd (b);
-	
+
 		if (c.X != 3)
 			return 1;
 		if (c.Y != 4)
@@ -928,7 +928,7 @@ public class SimdTests {
 		Vector2d b = new Vector2d (4, 0);
 
 		Vector2d c = a.Min (b);
-	
+
 		if (c.X != 1)
 			return 1;
 		if (c.Y != 0)
@@ -941,7 +941,7 @@ public class SimdTests {
 		Vector2d b = new Vector2d (4, 0);
 
 		Vector2d c = a.Max (b);
-	
+
 		if (c.X != 4)
 			return 1;
 		if (c.Y != 2)
@@ -957,7 +957,7 @@ public class SimdTests {
 		Vector4ui c = (Vector4ui)a.AndNot (b);
 		Vector4ui ta = (Vector4ui)a;
 		Vector4ui tb = (Vector4ui)b;
-	
+
 		if (c.X != (~ta.X & tb.X))
 			return 1;
 		if (c.Y != (~ta.Y & tb.Y))
@@ -974,7 +974,7 @@ public class SimdTests {
 		Vector2d b = new Vector2d (4, 5);
 
 		Vector2d c = a / b;
-	
+
 		if (c.X != 0.25)
 			return 1;
 		if (c.Y != 0.4)
@@ -987,7 +987,7 @@ public class SimdTests {
 		Vector2d b = new Vector2d (3, 5);
 
 		Vector2d c = a * b;
-	
+
 		if (c.X != 3)
 			return 1;
 		if (c.Y != 10)
@@ -999,7 +999,7 @@ public class SimdTests {
 		Vector2d b = new Vector2d (3, 5);
 
 		Vector2d c = a - b;
-	
+
 		if (c.X != -2)
 			return 1;
 		if (c.Y != -3)
@@ -1011,7 +1011,7 @@ public class SimdTests {
 		Vector2d b = new Vector2d (3, 4);
 
 		Vector2d c = a + b;
-	
+
 		if (c.X != 4)
 			return 1;
 		if (c.Y != 6)
@@ -1044,7 +1044,7 @@ public class SimdTests {
 		Vector4ui c = (Vector4ui)(a | b);
 		Vector4ui ta = (Vector4ui)a;
 		Vector4ui tb = (Vector4ui)b;
-	
+
 		if (c.X != (ta.X | tb.X))
 			return 1;
 		if (c.Y != (ta.Y | tb.Y))
@@ -1560,7 +1560,7 @@ public class SimdTests {
 		Vector8us res = bad_method_regression (a,b);
 		return (int)res.V0;
 	}
-	
+
 	public static int test_0_vecto8us_shuffle_low () {
 		Vector8us a = new Vector8us (1, 2, 3, 4, 5, 6, 7, 8);
 		Vector8us c = a.ShuffleLow (ShuffleSel.XFromY | ShuffleSel.YFromW | ShuffleSel.ZFromX | ShuffleSel.WFromZ);
@@ -1978,9 +1978,9 @@ public class SimdTests {
 
 	public static int test_0_vector4ui_sar () {
 		Vector4ui a = new Vector4ui (0xF0000000u,20,3,40);
-		
+
 		Vector4ui c = a.ArithmeticRightShift (2);
-	
+
 		if (c.X != 0xFC000000)
 			return 1;
 		if (c.Y != 5)
@@ -1995,9 +1995,9 @@ public class SimdTests {
 	public static int test_0_vector4ui_unpack_high () {
 		Vector4ui a = new Vector4ui (1,2,3,4);
 		Vector4ui b = new Vector4ui (5,6,7,8);
-		
+
 		Vector4ui c = a.UnpackHigh(b);
-	
+
 		if (c.X != 3)
 			return 1;
 		if (c.Y != 7)
@@ -2012,9 +2012,9 @@ public class SimdTests {
 	public  static int test_0_vector4ui_unpack_low () {
 		Vector4ui a = new Vector4ui (1,2,3,4);
 		Vector4ui b = new Vector4ui (5,6,7,8);
-		
+
 		Vector4ui c = a.UnpackLow (b);
-	
+
 		if (c.X != 1)
 			return 1;
 		if (c.Y != 5)
@@ -2029,9 +2029,9 @@ public class SimdTests {
 	public  static int test_0_vector4ui_xor () {
 		Vector4ui a = new Vector4ui (1,2,3,4);
 		Vector4ui b = new Vector4ui (7,5,3,1);
-		
+
 		Vector4ui c = a ^ b;
-	
+
 		if (c.X != 6)
 			return 1;
 		if (c.Y != 7)
@@ -2046,9 +2046,9 @@ public class SimdTests {
 	public  static int test_0_vector4ui_or () {
 		Vector4ui a = new Vector4ui (1,2,3,4);
 		Vector4ui b = new Vector4ui (7,5,3,1);
-		
+
 		Vector4ui c = a | b;
-	
+
 		if (c.X != 7)
 			return 1;
 		if (c.Y != 7)
@@ -2062,9 +2062,9 @@ public class SimdTests {
 	public  static int test_0_vector4ui_and () {
 		Vector4ui a = new Vector4ui (1,2,3,4);
 		Vector4ui b = new Vector4ui (7,5,3,1);
-		
+
 		Vector4ui c = a & b;
-	
+
 		if (c.X != 1)
 			return 1;
 		if (c.Y != 0)
@@ -2078,9 +2078,9 @@ public class SimdTests {
 
 	public  static int test_0_vector4ui_shr () {
 		Vector4ui a = new Vector4ui (0xF0000000u,20,3,40);
-		
+
 		Vector4ui c = a >> 2;
-	
+
 		if (c.X != 0x3C000000)
 			return 1;
 		if (c.Y != 5)
@@ -2094,9 +2094,9 @@ public class SimdTests {
 
 	public  static int test_0_vector4ui_shl () {
 		Vector4ui a = new Vector4ui (10,20,3,40);
-		
+
 		Vector4ui c = a << 2;
-	
+
 		if (c.X != 40)
 			return 1;
 		if (c.Y != 80)
@@ -2111,9 +2111,9 @@ public class SimdTests {
 	public  static int test_0_vector4ui_mul () {
 		Vector4ui a = new Vector4ui (0x8888,20,3,40);
 		Vector4ui b = new Vector4ui (0xFF00FF00u,2,3,4);
-		
+
 		Vector4ui c = a * b;
-	
+
 		if (c.X != 0xffff7800)
 			return 1;
 		if (c.Y != 40)
@@ -2127,9 +2127,9 @@ public class SimdTests {
 	public  static int test_0_vector4ui_sub () {
 		Vector4ui a = new Vector4ui (1,20,3,40);
 		Vector4ui b = new Vector4ui (0xFF00FF00u,2,3,4);
-		
+
 		Vector4ui c = a - b;
-	
+
 		if (c.X != 0xff0101)
 			return 1;
 		if (c.Y != 18)
@@ -2144,9 +2144,9 @@ public class SimdTests {
 	public  static int test_0_vector4ui_add () {
 		Vector4ui a = new Vector4ui (0xFF00FF00u,2,3,4);
 		Vector4ui b = new Vector4ui (0xFF00FF00u,2,3,4);
-		
+
 		Vector4ui c = a + b;
-	
+
 		if (c.X != 0xfe01fe00)
 			return 1;
 		if (c.Y != 4)
@@ -2263,7 +2263,7 @@ public class SimdTests {
 		Vector8us a = new Vector8us (0xFF00,1,2,3,4,5,6,7);
 		int amt = 2;
 		Vector8us c = a << amt;
-	
+
 		if (c.V0 != 0xFC00)
 			return 1;
 		if (c.V1 != 4)
@@ -2272,12 +2272,12 @@ public class SimdTests {
 			return 3;
 		return 0;
 	}
-	
+
 	static int test_0_vector8us_shift_right_arithmetic () {
 		Vector8us a = new Vector8us (0xFF00,1,2,3,4,5,6,7);
 		int amt = 2;
 		Vector8us c = a.ArithmeticRightShift (amt);
-	
+
 		if (c.V0 != 0xFFC0)
 			return 1;
 		if (c.V1 != 0)
@@ -2306,8 +2306,8 @@ public class SimdTests {
 			return 5;
 		return 0;
 	}
-	
-	
+
+
 	static int test_0_vector8us_shift_operand_is_live_after_op () {
 		Vector8us a = new Vector8us (0xF000,1,2,3,4,5,6,7);
 		Vector8us b = a;
@@ -2495,7 +2495,7 @@ public class SimdTests {
 			return 3;
 		return 0;
 	}
-	
+
 	static int test_0_vector16b_add_sat () {
 		Vector16b a = new Vector16b (200,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15);
 		Vector16b b = new Vector16b (200,10,11,12,13,14,15,0,1,2,3,4,5,6,7,8);
@@ -2655,8 +2655,8 @@ public class SimdTests {
 		if (c.W != 12f)
 			return 4;
 		return 0;
-	}
 
+	}
 	public static int test_0_simple_packed_sub () {
 		Vector4f a = new Vector4f (1, 2, 3, 4);
 		Vector4f b = new Vector4f (5, 6, 7, 8);
@@ -2851,7 +2851,7 @@ public class SimdTests {
 			return 0;
 		return 0;
 	}
-	
+
 	public static int test_0_double_packed_sqrt () {
 		Vector2d a = new Vector2d (16, 4);
 		a = a.Sqrt ();
@@ -2897,7 +2897,7 @@ public class SimdTests {
 		Vector4f i = h - g - f - e - d - c - b - a;
 		Vector4f j = a + b + c + d + e + f + g + h + i;
 		Vector4f k = j - i - h + e + d - a + b - f + g;
-		Vector4f l = k * c - j * b - i * e + f - g; 
+		Vector4f l = k * c - j * b - i * e + f - g;
 		Vector4f m = l - k + j - i + e + f;
 		Vector4f n = m - j + g - i + e * b + a * d;
 		Vector4f o = k + j + i * b;
@@ -2965,7 +2965,7 @@ public class SimdTests {
 		float jF = aF + bF + cF + dF + eF + fF + gF + hF + iF;
 		Vector4f k = j - i - h + e + d - a + b - f + g;
 		float kF = jF - iF - hF + eF + dF - aF + bF - fF + gF;
-		Vector4f l = k * c - j * b - i * e + f - g; 
+		Vector4f l = k * c - j * b - i * e + f - g;
 		float lF = kF * cF - jF * bF - iF * eF + fF - gF;
 		Vector4f m = l - k + j - i + e + f;
 		float mF = lF - kF + jF - iF + eF + fF;
@@ -3013,7 +3013,7 @@ public class SimdTests {
 		a += c;
 
 		b += d;
-		
+
 		call_simd_fp ();
 		if (a != 7f)
 			return 1;
@@ -3027,7 +3027,7 @@ public class SimdTests {
 			return 5;
 		if (d.W != 10f)
 			return 6;
-		
+
 
 		return 0;
 	}
@@ -3074,14 +3074,14 @@ public class SimdTests {
 
 	public static int test_0_simd_const_indexer_simple () {
 		Vector4f v = new Vector4f (1, 2, 3, 4);
-		
-		if (v[0] != 1) 
+
+		if (v[0] != 1)
 			return 1;
-		if (v[1] != 2) 
+		if (v[1] != 2)
 			return 2;
-		if (v[2] != 3) 
+		if (v[2] != 3)
 			return 3;
-		if (v[3] != 4) 
+		if (v[3] != 4)
 			return 4;
 		return 0;
 	}
@@ -3090,24 +3090,24 @@ public class SimdTests {
 		Vector4f v = new Vector4f (1, 2, 3, 4);
 
 		int index = 0;
-		
-		if (v[index++] != 1) 
+
+		if (v[index++] != 1)
 			return 1;
-		if (v[index++] != 2) 
+		if (v[index++] != 2)
 			return 2;
-		if (v[index++] != 3) 
+		if (v[index++] != 3)
 			return 3;
-		if (v[index] != 4) 
+		if (v[index] != 4)
 			return 4;
 		return 0;
 	}
 
 	public static int test_0_simd_const_indexer_double () {
 		Vector2d v = new Vector2d (1, 2);
-		
-		if (v[0] != 1) 
+
+		if (v[0] != 1)
 			return 1;
-		if (v[1] != 2) 
+		if (v[1] != 2)
 			return 2;
 		return 0;
 	}
@@ -3116,10 +3116,10 @@ public class SimdTests {
 		Vector2d v = new Vector2d (1, 2);
 
 		int index = 0;
-		
-		if (v[index++] != 1) 
+
+		if (v[index++] != 1)
 			return 1;
-		if (v[index] != 2) 
+		if (v[index] != 2)
 			return 2;
 		return 0;
 	}
@@ -3303,6 +3303,26 @@ public class SimdTests {
 			return 1;
 		if (xy.Y != 0)
 			return 2;
+		return 0;
+	}
+
+	public static int test_0_vector_operator_plus () {
+		var vector2d1 = new Vector2d (1, 2);
+		var vector2d2 = new Vector2d (3, 4);
+		vector2d1 += vector2d2;
+
+		if (vector2d1.X != 4)
+			return 1;
+		return 0;
+	}
+
+	public static int test_0_complex_operator_plus () {
+		var complex1 = new Complex (1, 2);
+		var complex2 = new Complex (3, 4);
+		complex1 += complex2;
+
+		if (complex1.X != 4)
+			return 1;
 		return 0;
 	}
 

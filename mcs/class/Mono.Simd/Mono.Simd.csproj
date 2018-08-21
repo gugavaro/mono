@@ -20,7 +20,7 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>../mono.pub</AssemblyOriginatorKeyFile>
   </PropertyGroup>
-  <!-- Set AddAdditionalExplicitAssemblyReferences to false, otherwise if targetting .NET4.0, 
+  <!-- Set AddAdditionalExplicitAssemblyReferences to false, otherwise if targetting .NET4.0,
   Microsoft.NETFramework.props will force a dependency on the assembly System.Core. This
   is a problem to compile the Mono mscorlib.dll -->
   <PropertyGroup>
@@ -78,6 +78,7 @@
     <Compile Include="Mono.Simd\AccelMode.cs" />
     <Compile Include="Mono.Simd\AccelerationAttribute.cs" />
     <Compile Include="Mono.Simd\ArrayExtensions.cs" />
+    <Compile Include="Mono.Simd\Complex.cs" />
     <Compile Include="Mono.Simd\SimdRuntime.cs" />
     <Compile Include="Mono.Simd\Vector16b.cs" />
     <Compile Include="Mono.Simd\Vector16sb.cs" />
